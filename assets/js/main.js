@@ -1,4 +1,7 @@
 var basic = document.querySelector('#basic');
+var advancedA = document.querySelector('#advanced-a');
+var advancedB = document.querySelector('#advanced-b');
+var advancedC = document.querySelector('#advanced-c');
 
 var squareAreaButton = document.querySelector('#square-area-button');
 var squarePerimeterButton = document.querySelector('#square-perimeter-button');
@@ -6,6 +9,8 @@ var circleAreaButton = document.querySelector('#circle-area-button');
 var circleCircumferenceButton = document.querySelector('#circle-circumference-button');
 var cubeSurfaceAreaButton = document.querySelector('#cube-surface-button');
 var cubeVolumeButton = document.querySelector('#cube-volume-button');
+var cubeVolumeButtonAdvanced = document.querySelector('#cube-volume-button-advanced');
+var circleAreaButtonAdvanced = document.querySelector('#circle-area-button-advanced');
 
 var result;
 var messageToast;
@@ -22,21 +27,6 @@ function add(firstNumber, secondNumber) {
 
 function substract(firstNumber, secondNumber) {
   result = firstNumber - secondNumber;
-  return result;
-}
-
-function multiply(firstNumber, secondNumber) {
-  result = firstNumber * secondNumber;
-  return result;
-}
-
-function divide(firstNumber, secondNumber) {
-  result = firstNumber / secondNumber;
-  return result;
-}
-
-function remainder(firstNumber, secondNumber) {
-  result = firstNumber % secondNumber;
   return result;
 }
 
@@ -160,9 +150,50 @@ function showCubeVolume() {
   }
 }
 
+function showAdvancedCubeVolume() {
+  var firstNumber = advancedB.value;
+  var secondNumber = advancedC.value;
+  if (isNaN(firstNumber) !== true && isNaN(secondNumber) !== true) {
+    firstNumber = Number(firstNumber);
+    secondNumber = Number(secondNumber);
+    calculateCubeVolume(add(firstNumber, secondNumber));
+    showToast(`Your first number is ${firstNumber}. Your second number is ${secondNumber}. Cube volume is ${result}`, 1000);
+  } else if (isNaN(firstNumber) !== true && isNaN(secondNumber) === true) {
+    showToast('Your first input is a number, but your second input is not a number. Please, input a number', 1000);
+  } else if (isNaN(firstNumber) === true && isNaN(secondNumber) !== true) {
+    showToast('Your second input is a number, but your first input is not a number. Please, input a number', 1000);
+  } else {
+    showToast('Please, input a number', 1000);
+  }
+}
+
+function showAdvancedCircleArea() {
+  var firstNumber = advancedB.value;
+  var secondNumber = advancedC.value;
+  if (isNaN(firstNumber) !== true && isNaN(secondNumber) !== true) {
+    firstNumber = Number(firstNumber);
+    secondNumber = Number(secondNumber);
+    if (firstNumber > secondNumber) {
+      calculateCircleArea(substract(firstNumber, secondNumber));
+      showToast(`Your first number is ${firstNumber}. Your second number is ${secondNumber}. Circle area is ${result}`, 1000);
+    } else {
+      showToast(`Please, input first number greater than second number`, 2000);
+    }
+  } else if (isNaN(firstNumber) !== true && isNaN(secondNumber) === true) {
+    showToast('Your first input is a number, but your second input is not a number. Please, input a number', 1000);
+  } else if (isNaN(firstNumber) === true && isNaN(secondNumber) !== true) {
+    showToast('Your second input is a number, but your first input is not a number. Please, input a number', 1000);
+  } else {
+    showToast('Please, input a number', 1000);
+  }
+}
+
 squareAreaButton.addEventListener(`click`, showSquareArea);
 squarePerimeterButton.addEventListener(`click`, showSquarePerimeter);
 circleAreaButton.addEventListener(`click`, showCircleArea);
 circleCircumferenceButton.addEventListener(`click`, showCircleCircumference);
 cubeSurfaceAreaButton.addEventListener(`click`, showCubeSurfaceArea);
 cubeVolumeButton.addEventListener(`click`, showCubeVolume);
+
+cubeVolumeButtonAdvanced.addEventListener(`click`, showAdvancedCubeVolume);
+circleAreaButtonAdvanced.addEventListener(`click`, showAdvancedCircleArea);
